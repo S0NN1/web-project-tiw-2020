@@ -7,6 +7,9 @@
         <element id="directory" name="classes">
           <element id="module-output" name="web-project-tiw-2020" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf:Release" />
+        </element>
       </element>
     </root>
   </artifact>
