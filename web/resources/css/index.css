@@ -2,3 +2,8 @@
     padding: 15px 0 5px 0 !important;
     font-size: 30px !important;
 }
+grid.main-grid {
+    padding-top: 30px;
+    max-width: 500px;
+    margin: auto;
+}

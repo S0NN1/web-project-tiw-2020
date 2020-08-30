@@ -21,29 +21,38 @@
 </h1>
 <div class="ui attached stackable menu">
     <div class="ui container">
-        <a class="item">
+        <a class="item" href="index.html">
             <i class="home icon"></i> Home
         </a>
-        <a class="item">
-            <i class="grid layout icon"></i> Browse
-        </a>
-        <a class="item">
-            <i class="mail icon"></i> Messages
-        </a>
         <div class="ui simple dropdown item">
-            More
+            Profile
             <i class="dropdown icon"></i>
             <div class="menu">
                 <a class="item"><i class="edit icon"></i> Edit Profile</a>
-                <a class="item"><i class="globe icon"></i> Choose Language</a>
-                <a class="item"><i class="settings icon"></i> Account Settings</a>
+                <a class="item"><i class="logout icon"></i> Logout</a>
             </div>
-        </div>
-        <div class="right item">
-            <div class="ui input"><input type="text" placeholder="Search..."></div>
         </div>
     </div>
 </div>
-
+<div id="main-grid" class="ui center aligned grid" style="padding-top: 30px; max-width: 500px; margin: auto;">
+    <div class="column center aligned">
+    <div class="ui centered huge form">
+        <div class="field">
+            <label>E-mail</label>
+            <input style="text-align: center" type="email" name="email" placeholder="foo@foo.com" required>
+        </div>
+        <div class="field">
+            <label>Password</label>
+            <input style="text-align: center" type="password" name="password" placeholder="*************************" required>
+        </div>
+        <!--<div class="ui error message">
+            <div class="header">Login Error</div>
+            <p>Incorrect email or password</p>
+        </div>-->
+        <div class="ui submit button">Submit</div>
+    </div>
+</div>
+</div>
+<footer class="footer"></footer>
 </body>
 </html>
