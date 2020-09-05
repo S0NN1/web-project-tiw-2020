@@ -1,9 +1,39 @@
-.main-title {
-    padding: 15px 0 5px 0 !important;
-    font-size: 30px !important;
+.meetOn{
+    margin-top: 30px;
+    width: 300px;
 }
-grid.main-grid {
-    padding-top: 30px;
-    max-width: 500px;
-    margin: auto;
+.formcontainer{
+    background-image: url("../images/undraw_Meeting_h2df.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 700px;
+    background-position: center top;
+    padding-top: 300px !important;
 }
+.login-button{
+    font-size: 40px !important;
+    border-radius: 20px !important;
+}
+@media screen and (min-width: 1127px){
+    .formcontainer{
+        height: 700px;
+        padding-top: 300px !important;
+    }
+}
+@media screen and (max-width: 1126px ){
+    .formcontainer{
+        height: 700px;
+        padding-top: 200px !important;
+    }
+}
+@media screen and (max-width: 723px){
+    .formcontainer{
+        height: 700px;
+        padding-top: 150px !important;
+    }
+    .login-button{
+        font-size: 30px !important;
+        border-radius: 20px !important;
+    }
+}
+

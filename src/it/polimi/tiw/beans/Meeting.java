@@ -1,13 +1,14 @@
 package it.polimi.tiw.beans;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.sql.Date;
+import java.sql.Time;
 import java.time.Duration;
+import java.util.ArrayList;
 
 public class Meeting implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     private String title;
 
@@ -19,20 +20,16 @@ public class Meeting implements Serializable {
 
     private int capacity;
 
-    public Meeting(){
-    title="";
-    date=null;
-    time=null;
-    duration=null;
-    capacity=0;
+    private int userID;
+
+    private ArrayList<Integer> partecipants;
+
+    public int getUserID() {
+        return userID;
     }
 
-    public Meeting(String title, Date date, Time time, Duration duration, int capacity){
-        this.title=title;
-        this.date=date;
-        this.time=time;
-        this.duration=duration;
-        this.capacity=capacity;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getTitle() {
@@ -73,5 +70,13 @@ public class Meeting implements Serializable {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public ArrayList<Integer> getPartecipants() {
+        return partecipants;
+    }
+
+    public void setPartecipants(ArrayList<Integer> partecipants) {
+        this.partecipants = partecipants;
     }
 }
