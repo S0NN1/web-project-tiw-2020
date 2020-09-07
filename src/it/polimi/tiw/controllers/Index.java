@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Index", urlPatterns = "/index.html")
+@WebServlet(name = "Index", urlPatterns = "/index")
 public class Index extends HttpServlet {
     TemplateEngine templateEngine;
-    boolean isLoggedIn;
 
     @Override
     public void init() {
@@ -24,7 +23,6 @@ public class Index extends HttpServlet {
         templateEngine = new TemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
         templateResolver.setSuffix(".html");
-        isLoggedIn = false;
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,13 +31,7 @@ public class Index extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
-        String path;
-        if (!isLoggedIn) {
-            path = "index.html";
-        } else {
-            path = "home.html";
-        }
-        webContext.setVariable("loggedIn", isLoggedIn);
-        templateEngine.process(path, webContext, response.getWriter());
+        webContext.setVariable("loggedIn", false);
+        templateEngine.process("index.html", webContext, response.getWriter());
     }
 }

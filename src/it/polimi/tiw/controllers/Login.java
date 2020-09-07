@@ -1,21 +1,25 @@
 package it.polimi.tiw.controllers;
 
+import it.polimi.tiw.beans.User;
+import it.polimi.tiw.dao.UserDAO;
+import it.polimi.tiw.utils.ConnectionHandler;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import javax.naming.Context;
+import java.sql.Connection;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "Login", urlPatterns = "/login")
 public class Login extends HttpServlet {
-    boolean isLoggedIn=false;
     TemplateEngine templateEngine;
 
     @Override
@@ -28,13 +32,29 @@ public class Login extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
-        webContext.get
+        String email=request.getParameter("email");
+        String password=request.getParameter("password");
+        try {
+            UserDAO userDAO = new UserDAO(ConnectionHandler.getConnection(getServletContext()));
+            User user = userDAO.getUserInfo(email, password);
+            if (user==null){
+                WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
+                webContext.setVariable("error", true);
+                templateEngine.process("login.html", webContext, response.getWriter());
+            }
+            else {
+                HttpSession session = request.getSession();
+                session.setAttribute("user", user);
+                response.sendRedirect("/home");
+            }
+        } catch (IllegalAccessException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
-        webContext.setVariable("loggedIn", isLoggedIn);
+        webContext.setVariable("loggedIn", false);
         templateEngine.process("login.html", webContext, response.getWriter());
     }
 }

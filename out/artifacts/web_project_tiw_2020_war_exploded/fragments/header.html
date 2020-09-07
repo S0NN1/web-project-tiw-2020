@@ -11,11 +11,11 @@
     <script src="../semantic/semantic.min.js"></script>
 </head>
 <body>
-<div th:fragment="header" >
-    <h1 class="ui centered header">
+<div th:fragment="header(title)" >
+    <h1 class="ui centered header" style="margin: 10px">
         <img src="../resources/images/logo.png" style="width: 50px; padding: 10px 5px 0 0">
         <div class="content main-title">
-            MeetOn
+            <span th:text=${title}></span>
         </div>
     </h1>
 </div>

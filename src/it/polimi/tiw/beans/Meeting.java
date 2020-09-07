@@ -3,41 +3,42 @@ package it.polimi.tiw.beans;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
-import java.time.Duration;
 import java.util.ArrayList;
 
 public class Meeting implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String title;
+    private int id;
+
+    private String topic;
 
     private Date date;
 
-    private Time time;
+    private Time startTime;
 
-    private Duration duration;
+    private Time endTime;
 
     private int capacity;
 
-    private int userID;
+    private int speakerId;
 
-    private ArrayList<Integer> partecipants;
+    private ArrayList<Integer> participants;
 
-    public int getUserID() {
-        return userID;
+    public int getSpeakerId() {
+        return speakerId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setSpeakerId(int speakerId) {
+        this.speakerId = speakerId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public Date getDate() {
@@ -48,20 +49,20 @@ public class Meeting implements Serializable {
         this.date = date;
     }
 
-    public Time getTime() {
-        return time;
+    public Time getStartTime() {
+        return startTime;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
     }
 
-    public Duration getDuration() {
-        return duration;
+    public Time getEndTime() {
+        return endTime;
     }
 
-    public void setDuration(Duration duration) {
-        this.duration = duration;
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
     }
 
     public int getCapacity() {
@@ -72,11 +73,19 @@ public class Meeting implements Serializable {
         this.capacity = capacity;
     }
 
-    public ArrayList<Integer> getPartecipants() {
-        return partecipants;
+    public ArrayList<Integer> getParticipants() {
+        return participants;
     }
 
-    public void setPartecipants(ArrayList<Integer> partecipants) {
-        this.partecipants = partecipants;
+    public void setParticipants(ArrayList<Integer> participants) {
+        this.participants = participants;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

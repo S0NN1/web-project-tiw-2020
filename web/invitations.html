@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Invitations</title>
+    <link rel="icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="semantic/semantic.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="semantic/semantic.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header('MeetOn')"></div>
+<div th:replace="fragments/navbar :: navbar"></div>
+<h2 class="ui centered header" style="margin: 10px">Registered Users</h2>
+<div id="meeting1" class="ui grid" style="padding-top: 30px; max-width: 500px; margin: auto;">
+    <div class="column">
+        <form class="ui huge form" method="post">
+            <div th:if="${error!=null}" class="ui red message" th:text="${error}"></div>
+            <table class="ui celled table ">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user: ${session.users}">
+                    <td th:text="${user.getName()}"></td>
+                    <td th:text="${user.getSurname()}"></td>
+                    <td type="email" th:text="${user.getEmail()}"></td>
+                    <td>
+                        <div class="ui checkbox">
+                            <input th:name="${user.getId()}" th:checked="${invitedUsers.contains(user.getId())}"  type="checkbox">
+                            <label></label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button class="ui blue button" type="submit">Invite</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

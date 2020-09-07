@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Failed</title>
+    <link rel="icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="semantic/semantic.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="semantic/semantic.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header('Error')"></div>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div id="meeting1" class="ui center aligned grid" style="padding-top: 30px; max-width: 500px; margin: auto;">
+    <div class="column center aligned">
+        <div class="ui red massive message">
+            No attempts left (3 max), meeting not created!
+        </div>
+        <a class="ui primary button" href="/home">
+            Return to home
+        </a>
+    </div>
+</div>
+</body>
+</html>

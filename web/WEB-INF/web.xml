@@ -4,12 +4,16 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <welcome-file-list>
-        <welcome-file>/login</welcome-file>
+        <welcome-file>/index</welcome-file>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
     <context-param>
         <param-name>dbUrl</param-name>
-        <param-value>jdbc:mysql://localhost/web-project</param-value>
+        <param-value>jdbc:mysql://localhost:3306/web-project</param-value>
+    </context-param>
+    <context-param>
+        <param-name>dbUser</param-name>
+        <param-value>root</param-value>
     </context-param>
     <context-param>
         <param-name>dbPassword</param-name>
@@ -27,4 +31,54 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>it.polimi.tiw.controllers.Login</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>Signup</servlet-name>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Signup</servlet-name>
+        <servlet-class>it.polimi.tiw.controllers.Signup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Invitations</servlet-name>
+        <url-pattern>/invitations</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Invitations</servlet-name>
+        <servlet-class>it.polimi.tiw.controllers.Invitations</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>it.polimi.tiw.controllers.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreationFailed</servlet-name>
+        <url-pattern>/creation-failed</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CreationFailed</servlet-name>
+        <servlet-class>it.polimi.tiw.controllers.CreationFailed</servlet-class>
+    </servlet>
+    <filter>
+        <filter-name>LoggedIn</filter-name>
+        <filter-class>it.polimi.tiw.filters.LoggedInChecker</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoggedIn</filter-name>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/logout</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>MeetingCreation</filter-name>
+        <filter-class>it.polimi.tiw.filters.MeetingCreation</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MeetingCreation</filter-name>
+        <url-pattern>/invitations</url-pattern>
+        <url-pattern>/creation-failed</url-pattern>
+    </filter-mapping>
 </web-app>

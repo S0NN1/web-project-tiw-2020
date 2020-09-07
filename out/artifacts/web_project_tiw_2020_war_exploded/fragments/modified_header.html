@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../favicon.ico"/>
+    <link rel="stylesheet" href="../semantic/semantic.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="../semantic/semantic.min.js"></script>
+</head>
+<body>
+<div th:fragment="modified_header(name, surname)" >
+    <h1 class="ui centered header" style="margin: 10px">
+        <img src="../resources/images/logo.png" style="width: 50px; padding: 10px 5px 0 0">
+        <div class="content main-title">
+            <span th:text="${name + ' ' + surname + ' Homepage'}" ></span>
+        </div>
+    </h1>
+</div>
+</body>

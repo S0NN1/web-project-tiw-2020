@@ -2,33 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>MeetOn</title>
+    <title>Login</title>
     <link rel="icon" href="favicon.ico"/>
     <link rel="stylesheet" href="semantic/semantic.min.css">
-    <link rel="stylesheet" href="resources/css/index.css">
     <script
             src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous"></script>
     <script src="semantic/semantic.min.js"></script>
 </head>
-<div th:replace="fragments/header :: header"></div>
 <body>
+<div th:replace="fragments/header :: header('MeetOn')"></div>
 <div th:replace="fragments/navbar :: navbar"></div>
-<div id="main-grid" class="ui center aligned grid" style="padding-top: 30px; max-width: 500px; margin: auto;">
-    <div class="column center aligned">
-        <form class="ui centered huge form" action="home.html">
+<div id="main-grid" class="ui grid" style="padding-top: 30px; max-width: 500px; margin: auto;">
+    <div class="column">
+        <form class="ui huge form" method="post">
             <div class="field">
                 <label>E-mail</label>
-                <input style="text-align: center" type="email" name="email" placeholder="foo@foo.com" th:required="required">
+                <input style="text-align: center" type="email" name="email" required>
+                <div th:if="${error==true}" class="ui pointing red basic label">
+                    No users found with associated email!
+                </div>
             </div>
             <div class="field">
                 <label>Password</label>
-                <input style="text-align: center" type="password" name="password"
-                       placeholder="*************************" th:required="required">
+                <input style="text-align: center" type="password" name="password" required>
             </div>
-            <a class="ui button" href="signup.html">Signup</a>
-            <button class="ui blue button">Submit</button>
+            <button class="ui blue button" type="submit">Submit</button>
+            <a class="ui button" href="/signup">Signup</a>
             </form>
     </div>
 </div>

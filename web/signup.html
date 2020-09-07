@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Signup</title>
+    <link rel="icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="semantic/semantic.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="semantic/semantic.min.js"></script>
 </head>
 <body>
-
+<div th:replace="fragments/header :: header('MeetOn')"></div>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div id="main-grid" class="ui grid" style="padding-top: 30px; max-width: 500px; margin: auto;">
+    <div class="column">
+        <form class="ui huge form" method="post">
+            <div class="field">
+                <label>Name</label>
+                <input style="text-align: center" name="name" placeholder="Name" required>
+            </div>
+            <div class="field">
+                <label>Surname</label>
+                <input style="text-align: center" name="surname" placeholder="Surname" required>
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input style="text-align: center" name="email" type="email" required>
+            </div>
+            <div class="field">
+                <label>Password</label>
+                <input style="text-align: center" name="password" type="password" required>
+            </div>
+            <button class="ui blue button">Submit</button>
+        </form>
+    </div>
+</div>
 </body>
-</html>

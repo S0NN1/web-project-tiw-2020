@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @WebServlet(name = "UserDAO")
 public class UserDAO extends HttpServlet {
@@ -32,16 +33,14 @@ public class UserDAO extends HttpServlet {
 
     public User getUserInfo(String email, String password) throws SQLException {
         String query = "SELECT * FROM user WHERE email=? AND password=?";
+        User retrievedUser = new User();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             String encryptedPassword = DigestUtils.sha512Hex(password);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, encryptedPassword);
-            try (ResultSet resultSet = preparedStatement.executeQuery()){
-                if (resultSet.isBeforeFirst())
-                    return null;
-                else {
-                    User retrievedUser = new User();
-                    retrievedUser.setId(resultSet.getInt("id"));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    retrievedUser.setId(resultSet.getInt("iduser"));
                     retrievedUser.setEmail(resultSet.getString("email"));
                     retrievedUser.setPassword(resultSet.getString("password"));
                     retrievedUser.setName(resultSet.getString("name"));
@@ -49,6 +48,27 @@ public class UserDAO extends HttpServlet {
                     return retrievedUser;
                 }
             }
+        }
+        return retrievedUser;
+    }
+
+    public ArrayList<User> getUsers(int id) throws SQLException {
+        String query = "SELECT * FROM user WHERE iduser!=?";
+        ArrayList<User> usersList = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    User retrievedUser = new User();
+                    retrievedUser.setId(resultSet.getInt("iduser"));
+                    retrievedUser.setEmail(resultSet.getString("email"));
+                    retrievedUser.setPassword(resultSet.getString("password"));
+                    retrievedUser.setName(resultSet.getString("name"));
+                    retrievedUser.setSurname(resultSet.getString("surname"));
+                    usersList.add(retrievedUser);
+                }
+            }
+            return usersList;
         }
     }
 }

@@ -1,10 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
+    <link rel="icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="semantic/semantic.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="semantic/semantic.min.js"></script>
 </head>
+<div th:replace="fragments/modified_header :: modified_header(${session.user.getName()}, ${session.user.getSurname()})"></div>
+<div th:replace="fragments/navbar :: navbar"></div>
+<h2 class="ui centered header" style="margin: 10px">Meetings scheduled</h2>
+<div id="meeting1" class="ui center aligned grid" style="padding-top: 30px; max-width: 500px; margin: auto;">
+    <div class="column center aligned">
+        <table class="ui celled table ">
+            <thead>
+            <tr>
+                <th>Topic</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Capacity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="meeting: ${session.meetingsCreated}">
+                <td th:text="${meeting.getTopic()}"></td>
+                <td type="date" th:text="${meeting.getDate()}"></td>
+                <td type="time" th:text="${meeting.getStartTime()}"></td>
+                <td type="time" th:text="${meeting.getEndTime()}"></td>
+                <td th:text="${meeting.getCapacity()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<h2 class="ui centered header" style="margin: 10px">Invitations</h2>
+<div id="meeting2" class="ui center aligned grid" style="padding-top: 30px; max-width: 500px; margin: auto;">
+    <div class="column center aligned">
+        <table class="ui celled table ">
+            <thead>
+            <tr>
+                <th>Topic</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Capacity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="meeting: ${session.meetingsInvitations}">
+                <td th:text="${meeting.getTopic()}"></td>
+                <td type="date" th:text="${meeting.getDate()}"></td>
+                <td type="time" th:text="${meeting.getStartTime()}"></td>
+                <td type="time" th:text="${meeting.getEndTime()}"></td>
+                <td th:text="${meeting.getCapacity()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="form-grid" class="ui grid" style="padding-top: 30px; max-width: 500px; margin: auto;">
+    <div class="column">
+        <form class="ui huge form" method="post">
+            <div class="field">
+                <label>Topic</label>
+                <input style="text-align: center" name="topic" required>
+            </div>
+            <div class="field">
+                <label>Date</label>
+                <div class="ui calendar" id="example2">
+                    <div class="ui input left icon">
+                        <i class="calendar icon"></i>
+                        <input type="date" name="date" required>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label>Start Time</label>
+                <input style="text-align: center" type="time" name="startTime" required>
+            </div>
+            <div class="field">
+                <label>End Time</label>
+                <input style="text-align: center" type="time" name="endTime" required>
+            </div>
+            <div class="field">
+                <label>Capacity</label>
+                <input style="text-align: center" type="number" min="1" name="capacity" required>
+            </div>
+            <button class="ui blue button">Create meeting</button>
+        </form>
+    </div>
+</div>
 <body>
-
-</body>
-</html>
