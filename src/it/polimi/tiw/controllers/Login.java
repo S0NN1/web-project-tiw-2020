@@ -32,6 +32,7 @@ public class Login extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String email=request.getParameter("email");
         String password=request.getParameter("password");
         try {
@@ -39,12 +40,12 @@ public class Login extends HttpServlet {
             User user = userDAO.getUserInfo(email, password);
             if (user==null){
                 WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
-                webContext.setVariable("error", true);
+                session.setAttribute("loginError", "Login Error");
                 templateEngine.process("login.html", webContext, response.getWriter());
             }
             else {
-                HttpSession session = request.getSession();
                 session.setAttribute("user", user);
+                session.removeAttribute("loginError");
                 response.sendRedirect("/home");
             }
         } catch (IllegalAccessException | SQLException e) {
@@ -53,8 +54,10 @@ public class Login extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
         webContext.setVariable("loggedIn", false);
+        session.removeAttribute("loginError");
         templateEngine.process("login.html", webContext, response.getWriter());
     }
 }

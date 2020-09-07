@@ -28,6 +28,8 @@
             <div class="field">
                 <label>Email</label>
                 <input style="text-align: center" name="email" type="email" required>
+                <div th:if="${session.signupError!=null}" th:text="${session.signupError}" class="ui pointing red basic label">
+                </div>
             </div>
             <div class="field">
                 <label>Password</label>

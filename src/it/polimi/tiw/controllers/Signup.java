@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -29,14 +30,23 @@ public class Signup extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         try {
             UserDAO userDAO = new UserDAO(ConnectionHandler.getConnection(getServletContext()));
-            userDAO.registerUser(name, surname, email, password);
-            response.sendRedirect("/login");
+            if(userDAO.checkUserExist(email)){
+                session.setAttribute("signupError", "Email already registered");
+                templateEngine.process("signup.html", webContext, response.getWriter());
+            }
+            else {
+                userDAO.registerUser(name, surname, email, password);
+                session.removeAttribute("signupError");
+                response.sendRedirect("/login");
+            }
         } catch (IllegalAccessException | SQLException e) {
             e.printStackTrace();
         }
@@ -45,6 +55,8 @@ public class Signup extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
         webContext.setVariable("loggedIn", false);
+        HttpSession session= request.getSession();
+        session.removeAttribute("signupError");
         templateEngine.process("signup.html", webContext, response.getWriter());
     }
 }
